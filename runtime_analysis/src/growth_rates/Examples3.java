@@ -89,6 +89,10 @@ public class Examples3
         System.out.println("********************");
     }
 
+    /*
+        Runtime is nlogn, but this is an overestimate. t(n) = 1    + log1 + log2 + log3 + ... + logn
+                                                       t(n) = logn + logn + logn + logn + ... + logn
+     */
     public static Map<String, String> getDictionary(String file)
     {
         final int WORD = 0;
@@ -97,12 +101,15 @@ public class Examples3
         Map<String, String> dict = new TreeMap<>();
         try (Scanner reader = new Scanner(new FileInputStream(file)))
         {
-            String line = reader.nextLine();
-            String[] parts = line.split(" - ");
-
-            if (!dict.containsKey(parts[WORD]))
+            while (reader.hasNextLine()) //costs n
             {
-                dict.put(parts[WORD], parts[DEFINITION]);
+                String line = reader.nextLine();
+                String[] parts = line.split(" - ");
+
+                if (!dict.containsKey(parts[WORD]))
+                {
+                    dict.put(parts[WORD], parts[DEFINITION]); //cost logn
+                }
             }
         }
         catch (Exception ex)

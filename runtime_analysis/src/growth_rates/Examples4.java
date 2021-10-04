@@ -2,6 +2,7 @@ package growth_rates;
 
 public class Examples4
 {
+    //Runtime: linear
     public static int factorial(int n)
     {
         if (n == 0 || n == 1)
@@ -11,6 +12,7 @@ public class Examples4
         return factorial(n - 1) * n;
     }
 
+    //Runtime: linear
     public static void printPowers(int n)
     {
         if (n == 0)
