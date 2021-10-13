@@ -14,7 +14,7 @@ public class SortingUtilities
         for (int i = 0; i < results.length; i++)
         {
             //a good heuristic!
-            results[i] = random.nextInt(size / 2);
+            results[i] = random.nextInt(size);
         }
 
         return results;
