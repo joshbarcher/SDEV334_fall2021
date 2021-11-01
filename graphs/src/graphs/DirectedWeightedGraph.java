@@ -28,7 +28,12 @@ public class DirectedWeightedGraph<V> implements IDirectedWeightedGraph<V>
     public boolean addEdge(WeightedEdge<V> edge)
     {
         //preconditions?
-        if (containsEdge(edge.getSource(), edge.getDestination()))
+        if (!containsVertex(edge.getSource()) ||
+            !containsVertex(edge.getDestination()))
+        {
+            return false;
+        }
+        else if (containsEdge(edge.getSource(), edge.getDestination()))
         {
             return false;
         }
@@ -38,16 +43,23 @@ public class DirectedWeightedGraph<V> implements IDirectedWeightedGraph<V>
         if (list == null)
         {
             //first incident edge
-            adjLists.put(edge.getSource(), new Node<>(edge.getDestination(), null));
+            adjLists.put(edge.getSource(), new Node<>(edge.getDestination(),
+                    null, edge.getWeight()));
+        }
+        else
+        {
+            //add a new node at the front of the list
+            Node<V> head = new Node<>(edge.getDestination(),
+                    list, edge.getWeight());
+            adjLists.put(edge.getSource(), head);
         }
 
-        return false;
+        return true;
     }
 
     // this method will try to add all the input vertices
     // this method will return true if all vertices are added successfully
-    @Override
-    public boolean addVertex(V... vertices)
+    public boolean addVertices(V... vertices)
     {
         boolean allSuccessful = true;
         for (V vertex : vertices)
@@ -57,10 +69,14 @@ public class DirectedWeightedGraph<V> implements IDirectedWeightedGraph<V>
         return allSuccessful;
     }
 
-    @Override
-    public boolean addEdge(WeightedEdge<V>... edges)
+    public boolean addEdges(WeightedEdge<V>... edges)
     {
-        return false;
+        boolean allSuccessful = true;
+        for (WeightedEdge<V> edge : edges)
+        {
+            allSuccessful = allSuccessful && addEdge(edge);
+        }
+        return allSuccessful;
     }
 
     @Override
@@ -115,11 +131,13 @@ public class DirectedWeightedGraph<V> implements IDirectedWeightedGraph<V>
     {
         private V data;
         private Node<V> next;
+        private double weight;
 
-        public Node(V data, Node<V> next)
+        public Node(V data, Node<V> next, double weight)
         {
             this.data = data;
             this.next = next;
+            this.weight = weight;
         }
     }
 }

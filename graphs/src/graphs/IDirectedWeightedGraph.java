@@ -9,8 +9,8 @@ public interface IDirectedWeightedGraph<V>
     boolean addEdge(WeightedEdge<V> edge);
 
     //for ease of use
-    boolean addVertex(V... vertices);
-    boolean addEdge(WeightedEdge<V>... edges);
+    boolean addVertices(V... vertices);
+    boolean addEdges(WeightedEdge<V>... edges);
 
     //removing parts of the graph
     boolean removeVertex(V vertex);
