@@ -127,6 +127,12 @@ public class DirectedWeightedGraph<V> implements IDirectedWeightedGraph<V>
         return 0;
     }
 
+    @Override
+    public String toString()
+    {
+        return "|V| = " + vertexSize() + ", |E| = " + edgeSize();
+    }
+
     private static class Node<V>
     {
         private V data;
@@ -138,6 +144,12 @@ public class DirectedWeightedGraph<V> implements IDirectedWeightedGraph<V>
             this.data = data;
             this.next = next;
             this.weight = weight;
+        }
+
+        @Override
+        public String toString()
+        {
+            return data.toString();
         }
     }
 }
