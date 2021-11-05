@@ -1,5 +1,6 @@
 package graphs;
 
+import java.util.List;
 import java.util.Set;
 
 public interface IDirectedWeightedGraph<V>
@@ -29,4 +30,18 @@ public interface IDirectedWeightedGraph<V>
     int edgeSize();
 
     //graph algorithms? ...
+    List<V> dfs(V source);
+    List<V> bfs();
 }
+
+
+
+
+
+
+
+
+
+
+
+

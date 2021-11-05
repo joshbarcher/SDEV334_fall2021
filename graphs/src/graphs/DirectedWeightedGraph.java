@@ -1,9 +1,6 @@
 package graphs;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class DirectedWeightedGraph<V> implements IDirectedWeightedGraph<V>
 {
@@ -125,6 +122,53 @@ public class DirectedWeightedGraph<V> implements IDirectedWeightedGraph<V>
     public int edgeSize()
     {
         return 0;
+    }
+
+    @Override
+    public List<V> dfs(V sourceVertex)
+    {
+        //precondition
+        if (!containsVertex(sourceVertex))
+        {
+            return new ArrayList<>();
+        }
+
+        Set<V> visited = new HashSet<>();
+        List<V> traversal = new ArrayList<>();
+
+        //recursively search through the graph
+        dfs(sourceVertex, visited, traversal);
+
+        return traversal;
+    }
+
+    private void dfs(V currentVertex, Set<V> visited, List<V> traversal)
+    {
+        if (visited.contains(currentVertex))
+        {
+            return; //exit!
+        }
+
+        //otherwise, visit the current vertex as part of the traversal
+        traversal.add(currentVertex);
+        visited.add(currentVertex);
+
+        //move to adjacent vertices in the graph and continue the traversal
+        Node<V> neighborList = adjLists.get(currentVertex);
+        while (neighborList != null)
+        {
+            //visit the neighbor
+            dfs(neighborList.data, visited, traversal);
+
+            //move to the next neighbor
+            neighborList = neighborList.next;
+        }
+    }
+
+    @Override
+    public List<V> bfs()
+    {
+        return null;
     }
 
     @Override
